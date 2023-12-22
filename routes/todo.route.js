@@ -7,6 +7,13 @@ const {Storage} = require('../src/storage.io')
 const storage = new Storage('todos-simple')
 const todos = storage.data
 
+router.get('/', (req, res) => {
+  res.render("todo/index", {
+    title: "TODO SIMPLE",
+    todos: todos,
+  })
+})
+
 router.get('/create', (req, res) => {
   res.render('todo/create', {
     title: "TODO SIMPLE: create todo",
@@ -61,4 +68,4 @@ router.post('/delete/:id', (req, res) => {
   res.redirect('/todo')
 })
 
-moduile.exports = router
+module.exports = router
