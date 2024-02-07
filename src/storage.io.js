@@ -13,13 +13,13 @@ class Storage {
     this.data = [];
     fs.access(this.path, fs.constants.R_OK, (err) => {
       if (err) {
-        console.log('Хранилище не найдено. Будет создано новое хранилище...')
-        this.write(this.data)
+        console.log("Хранилище не найдено. Будет создано новое хранилище...");
+        this.write(this.data);
       } else {
-        console.log('Хранилище обнаружено. Чтение данных...')
-        this.read()
+        console.log("Хранилище обнаружено. Чтение данных...");
+        this.read();
       }
-    })
+    });
   }
 
   setData(data) {
@@ -27,16 +27,13 @@ class Storage {
   }
 
   read() {
-    try {
-      fs.readFile(this.path, (err, data) => {
-        if (err) {
-          console.error(err);
-        }
-        this.setData(JSON.parse(data));
-      });
-    } catch (err) {
-      console.error(err)
-    }
+    fs.readFile(this.path, (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+      const parsedData = JSON.parse(data);
+      this.setData(parsedData);
+    });
   }
 
   write(data) {

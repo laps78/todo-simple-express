@@ -1,11 +1,11 @@
-const { v4: uuid } = require('uuid')
+const { v4: uuid } = require("uuid");
 
 class Todo {
-  constructor(title = "", desc = "", id = uuid()) {
+  constructor(title = "", description = "", id = uuid()) {
     this.title = title;
-    this.desc = desc;
+    this.description = description;
     this.id = id;
   }
 }
 
-module.exports = {Todo}
+module.exports = { Todo };
