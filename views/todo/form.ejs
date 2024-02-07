@@ -1,4 +1,4 @@
-<form method="POST" class="mt-5">
+<form action="create/" method="POST" class="mt-5" enctype="multipart/form-data">
   <div class="form-group">
     <label for="inputTitle">Заголовок</label>
     <input
@@ -12,9 +12,9 @@
 
   <div class="form-group">
     <label for="inputDesc">Описание</label>
-    <textarea rows="3" name="desc" class="form-control" id="inputDesc">
-<%= todo.description%></textarea
-    >
+    <textarea rows="3" name="description" class="form-control" id="inputDesc">
+      <%= todo.description %>
+    </textarea>
   </div>
 
   <div class="form-group text-right">
