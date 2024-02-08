@@ -4,6 +4,7 @@ const router = express.Router();
 const { Todo } = require("../src/todo.class");
 const { Storage } = require("../src/storage.io");
 
+// TODO ВОТ ТУТ НУЖНО КРАСИВО ДОБАВИТЬ НЕМНОГО КАШЕРНОЙ АСИНХРОННОСТИ
 router.use((req, res, next) => {
   req.storage = new Storage("todos-simple");
   setTimeout(() => {
@@ -29,7 +30,9 @@ router.get("/create", (req, res) => {
 
 router.post("/create", (req, res) => {
   const { title, description } = req.body;
+  //
   console.log(title, description, req.body);
+  //
   const newTodo = new Todo(title, description);
   req.storage.addNew(newTodo);
   res.redirect("/todo");
