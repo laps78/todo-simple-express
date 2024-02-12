@@ -16,14 +16,14 @@ router.use((req, res, next) => {
 
 router.all("/", (req, res) => {
   res.render("todo/index", {
-    title: "TODO SIMPLE",
+    title: "All todos",
     todos: req.todos,
   });
 });
 
 router.get("/create", (req, res) => {
   res.render("todo/create", {
-    title: "TODO SIMPLE: create todo",
+    title: "Todo create",
     todo: {},
     action: "create/",
   });
@@ -43,7 +43,7 @@ router.get("/update/:id", (req, res) => {
     res.redirect("/404");
   }
   res.render("todo/update", {
-    title: "TODO SIMPLE: update todo",
+    title: "Todo update",
     todo: req.todos[idx],
     action: `/todo/update/${id}`,
   });
@@ -56,7 +56,7 @@ router.all("/:id", (req, res) => {
     res.redirect("/404");
   }
   res.render("todo/view", {
-    title: "TODO SIMPLE | view",
+    title: "Todo view",
     todo: req.todos[idx],
   });
 });
@@ -66,9 +66,6 @@ router.post("/update/:id", (req, res) => {
   const { title, description } = req.body;
   const idx = req.todos.findIndex((el) => el.id === id);
   if (idx === -1) {
-    //
-    console.log("не нашел post (", idx, ")", id);
-    //
     res.redirect("/404");
   }
   req.todos[idx] = {
