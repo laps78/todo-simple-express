@@ -45,7 +45,7 @@ router.get("/update/:id", (req, res) => {
   res.render("todo/update", {
     title: "TODO SIMPLE: update todo",
     todo: req.todos[idx],
-    action: `update/${id}`,
+    action: `/todo/update/${id}`,
   });
 });
 
