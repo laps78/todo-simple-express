@@ -21,9 +21,11 @@ app.use("/api", todoApiRouter);
 app.use("/todo", todoRouter);
 app.use(errorMW);
 
-const startApp = async (PORT, UrlDB) => {
+const startApp = async (PORT, UrlDB, DB_NAME) => {
   try {
-    await mongoose.connect(UrlDB);
+    await mongoose.connect(UrlDB, {
+      dbName: DB_NAME,
+    });
     app.listen(PORT) &&
       console.log(`Приложение успешно запущено localhost:${PORT}`);
   } catch (err) {
@@ -35,4 +37,4 @@ const startApp = async (PORT, UrlDB) => {
 };
 
 // Ниже то, ради чего все затевалось:
-startApp(PORT, UrlDB);
+startApp(PORT, UrlDB, DB_NAME);

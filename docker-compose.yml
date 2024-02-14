@@ -8,6 +8,7 @@ services:
     environment:
       PORT: 3030
       UrlDB: mongodb://root:example@mongo:27017
+      DB_NAME: todos
     volumes:
       - ./:/app
     depends_on:
