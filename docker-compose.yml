@@ -1,7 +1,7 @@
 version: "3"
 services:
   todo-express-app:
-    image: laps78/todo-simple-express:1.0.2
+    build: .
     restart: always
     ports:
       - 3030:3030
@@ -10,7 +10,7 @@ services:
       UrlDB: mongodb://root:example@mongo:27017
       DB_NAME: todos
     volumes:
-      - ./:/app
+      - ./:/todo-app
     depends_on:
       - mongo
 
@@ -21,7 +21,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./data-storage/mongo:/data-storage/db
+      - ./data-storage/mongo:/data/db
 
   mongo-express:
     image: mongo-express

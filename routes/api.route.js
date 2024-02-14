@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Todo = require("../models/todo");
 
-router.get(async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const todos = await Todo.find().select("-__v");
-    res.json(todos);
+    console.log(todos);
+    res.status(200).json(todos);
   } catch (error) {
     console.error(`Database err handling route ${req.method}: /${id}`, error);
     res.status(500).json({
@@ -41,7 +42,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.error(`Database err handling route ${req.method}: /`, error);
     res.status(500).json({
-      message: `Database err handling route ${req.method}: /${id}`,
+      message: `Database err handling route ${req.method}: /`,
       erroe: error,
     });
   }
@@ -55,7 +56,7 @@ router.put("/:id", async (req, res) => {
       title,
       description,
     });
-    res.redirect(`/api/todo/${id}`);
+    res.redirect(`/api/${id}`);
   } catch (error) {
     console.error(`Database err handling route ${req.method}: /${id}`, error);
     res.status(500).json({
@@ -69,7 +70,7 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await Todo.deleteOne({ _id: id });
-    res.status(200).json("success");
+    res.status(200).json("Todo delete success");
   } catch (error) {
     console.error(`Database err handling route ${req.method}: /${id}`, error);
     res.status(500).json({

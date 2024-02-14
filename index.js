@@ -10,6 +10,7 @@ const todoRouter = require("./routes/todo.route");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const UrlDB = process.env.UrlDB;
+const DB_NAME = process.env.DB_NAME;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -36,5 +37,4 @@ const startApp = async (PORT, UrlDB, DB_NAME) => {
   }
 };
 
-// Ниже то, ради чего все затевалось:
 startApp(PORT, UrlDB, DB_NAME);
