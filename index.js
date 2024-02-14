@@ -8,7 +8,6 @@ const indexRouter = require("./routes/index.route");
 const todoRouter = require("./routes/todo.route");
 
 dotenv.config();
-const appName = process.env.APP_NAME || "Noname";
 const PORT = process.env.PORT || 3000;
 const UrlDB = process.env.UrlDB;
 const app = express();
@@ -24,7 +23,7 @@ app.use("/api", todoApiRouter);
 app.use("/todo", todoRouter);
 app.use(errorMW);
 
-const startApp = async (PORT, UrlDB, appName = "Noname") => {
+const startApp = async (PORT, UrlDB) => {
   try {
     await mongoose.connect(UrlDB);
     app.listen(PORT) &&
