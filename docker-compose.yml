@@ -1,7 +1,7 @@
 version: "3"
 services:
   todo-express-app:
-    image: laps78/todo-express-app:1.0.2
+    image: laps78/todo-simple-express:1.0.2
     restart: always
     ports:
       - 3030:3030
