@@ -13,9 +13,7 @@ const UrlDB = process.env.UrlDB;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
-//
 app.use(express.json());
-//
 app.set("view engine", "ejs");
 
 app.use("/", indexRouter);
