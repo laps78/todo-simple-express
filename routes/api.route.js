@@ -5,7 +5,6 @@ const Todo = require("../models/todo");
 router.get("/", async (req, res) => {
   try {
     const todos = await Todo.find().select("-__v");
-    console.log(todos);
     res.status(200).json(todos);
   } catch (error) {
     console.error(`Database err handling route ${req.method}: /${id}`, error);
