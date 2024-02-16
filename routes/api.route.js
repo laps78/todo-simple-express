@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const userRoute = require("./user.route");
 const Todo = require("../models/todo");
+
+router.use("/user", userRoute);
 
 router.get("/", async (req, res) => {
   try {
