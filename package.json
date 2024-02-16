@@ -14,7 +14,10 @@
     "dotenv": "^16.3.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.18.0",
     "mongoose": "^8.1.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
