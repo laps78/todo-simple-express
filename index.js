@@ -2,6 +2,7 @@ const express = require("express");
 const errorMW = require("./middleware/error");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const session = require("express-session");
 
 const todoApiRouter = require("./routes/api.route");
 const indexRouter = require("./routes/index.route");
@@ -15,6 +16,8 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({ secret: "SECRET" }));
+
 app.set("view engine", "ejs");
 
 app.use("/", indexRouter);

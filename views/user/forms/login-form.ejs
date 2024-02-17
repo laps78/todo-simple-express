@@ -1,0 +1,43 @@
+<form
+  action="/api/user/login"
+  method="POST"
+  class="mt-5"
+  style="
+    input:invalid {
+      border: red solid 1px;
+    }
+    input:valid {
+      border: green solid 1px;
+    }
+  "
+>
+  <div class="form-group">
+    <label for="inputName">Логин</label>
+    <input
+      type="text"
+      placeholder="Имя пользователя"
+      name="username"
+      class="form-control"
+      id="inputName"
+      pattern="/^[a-z]+([-_]?[a-z0-9]+){0,2}$/i"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="inputPass">Пароль</label>
+    <input
+      type="password"
+      placeholder="Пароль"
+      name="password"
+      class="form-control"
+      id="inputPass"
+      pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/gm"
+      required
+    />
+  </div>
+
+  <div class="form-group text-right">
+    <button type="submit" class="btn btn-primary">Войти</button>
+  </div>
+</form>

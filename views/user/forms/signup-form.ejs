@@ -1,0 +1,68 @@
+<form
+  action="/api/user/signup"
+  method="POST"
+  class="mt-5"
+  style="
+    input:invalid {
+      border: red solid 1px;
+    }
+    input:valid {
+      border: green solid 1px;
+    }
+  "
+>
+  <div class="form-group">
+    <label for="inputNickName">Отображаемое имя</label>
+    <input
+      type="text"
+      placeholder="Отображаемое имя"
+      name="nickname"
+      class="form-control"
+      id="inputNickName"
+      pattern="/^[a-z]+([-_]?[a-z0-9]+){0,2}$/i"
+      required
+    />
+    <span class="form_hint_span"
+      >Начинается и кончается на букву/цифру и содержит не более двух ""/"-" и
+      не подряд.</span
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="inputUserName">Логин</label>
+    <input
+      type="text"
+      placeholder="Имя пользователя"
+      name="username"
+      class="form-control"
+      id="inputUserName"
+      pattern="/^[a-z]+([-_]?[a-z0-9]+){0,2}$/i"
+      required
+    />
+    <span class="form_hint_span"
+      >Начинается и кончается на букву/цифру и содержит не более двух ""/"-" и
+      не подряд.</span
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="inputPass">Пароль</label>
+    <input
+      type="password"
+      placeholder="Пароль"
+      name="password"
+      class="form-control"
+      id="inputPass"
+      pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/gm"
+      required
+    />
+    <span class="form_hint_span"
+      >8-16 символов латиницей в разных регистрах, хотя бы одна цифра, без
+      пробелов и по крайней мере, один не алфавитно-цифровой символ</span
+    >
+  </div>
+
+  <div class="form-group text-right">
+    <button type="submit" class="btn btn-primary">Войти</button>
+  </div>
+</form>
