@@ -19,7 +19,7 @@
       name="nickname"
       class="form-control"
       id="inputNickName"
-      pattern="/^[a-z]+([-_]?[a-z0-9]+){0,2}$/i"
+      pattern="/^(?=.*\d)[a-zA-Z]+[a-zA-Z0-9-_.]{6,13}$/"
       required
     />
     <span class="form_hint_span"
@@ -36,13 +36,15 @@
       name="username"
       class="form-control"
       id="inputUserName"
-      pattern="/^[a-z]+([-_]?[a-z0-9]+){0,2}$/i"
+      pattern="/^(?=.*\d)[a-zA-Z]+[a-zA-Z0-9-_.]{7,15}$/"
       required
     />
-    <span class="form_hint_span"
-      >Начинается и кончается на букву/цифру и содержит не более двух ""/"-" и
-      не подряд.</span
-    >
+    <p>
+      <small
+        >длина 8-15 символов латиницы заглавных или прописных, разрешены цифры,
+        без пробелов</small
+      >
+    </p>
   </div>
 
   <div class="form-group">
@@ -53,13 +55,15 @@
       name="password"
       class="form-control"
       id="inputPass"
-      pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/gm"
+      pattern="/^(?=.*\d)[a-zA-Z]+[a-zA-Z0-9-_.]{7,15}$/"
       required
     />
-    <span class="form_hint_span"
-      >8-16 символов латиницей в разных регистрах, хотя бы одна цифра, без
-      пробелов и по крайней мере, один не алфавитно-цифровой символ</span
-    >
+    <p>
+      <small
+        >длина 8-15 символов латиницы заглавных или прописных, разрешены цифры,
+        без пробелов</small
+      >
+    </p>
   </div>
 
   <div class="form-group text-right">
