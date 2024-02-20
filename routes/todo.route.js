@@ -3,28 +3,38 @@ const router = express.Router();
 
 const Todo = require("../models/todo");
 
-router.all("/", async (req, res) => {
-  //
-  console.log(
-    `todo.route log:\n`,
-    `user: ${req.user}`
-    //`session: ${req.session}``isAuthenticated(): ${req.isAuthenticated()}`
-  );
-  //
-  try {
-    const todos = await Todo.find().select("-__v");
-    res.render("todo/index", {
-      title: "All todos",
-      todos: todos,
-    });
-  } catch (error) {
-    console.error(`Database err handling route ${req.method}: /}`, error);
-    res.status(500).json({
-      message: `Database err handling route ${req.method}: /`,
-      error: error,
-    });
+router.all(
+  "/",
+  (req, res, next) => {
+    if (!req.isAuthenticated()) {
+      res.redirect("/api/user/login");
+    }
+    next();
+  },
+  async (req, res) => {
+    //
+    console.log(
+      `todo.route log:\n`,
+      `user: ${req.user}\n`,
+      `session: ${req.session}\n`,
+      `isAuthenticated(): ${req.isAuthenticated()}`
+    );
+    //
+    try {
+      const todos = await Todo.find().select("-__v");
+      res.render("todo/index", {
+        title: "All todos",
+        todos: todos,
+      });
+    } catch (error) {
+      console.error(`Database err handling route ${req.method}: /}`, error);
+      res.status(500).json({
+        message: `Database err handling route ${req.method}: /`,
+        error: error,
+      });
+    }
   }
-});
+);
 
 router.get("/create", (req, res) => {
   res.render("todo/create", {

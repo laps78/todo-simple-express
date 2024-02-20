@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
+// passport testing code
+const { passport } = require("./middleware/userAuth");
+
 const todoApiRouter = require("./routes/api.route");
 const indexRouter = require("./routes/index.route");
 const todoRouter = require("./routes/todo.route");
@@ -18,6 +21,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use(
   session({
     secret: "SECRET",
@@ -30,6 +34,10 @@ app.use(
     },
   })
 );
+
+app.use(passport.session({ secret: "SECRET" }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set("view engine", "ejs");
 
