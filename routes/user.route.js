@@ -10,24 +10,22 @@ const verifyPassword = (user, password) => {
 
 const verify = async (username, password, done) => {
   try {
-    await Users.findOne({ name: username }, (error, user) => {
-      if (error) {
-        return done(error);
-      }
-      if (!user) {
-        return done(null, false);
-      }
-      if (!verifyPassword(user, password)) {
-        return done(null, false);
-      }
-      return done(null, user);
-    }).select("-__v");
+    const foundUser = await Users.findOne({ name: username }).select("-__v");
+    if (!foundUser) {
+      return done(null, false);
+    }
+    if (!verifyPassword(foundUser, password)) {
+      return done(null, false);
+    }
+    console.log("user found");
+    return done(null, foundUser);
   } catch (error) {
     console.error(`Database err searching user by name ${username}`, error);
     res.status(500).json({
       message: `Database err searching user by name ${username}`,
       erroe: error,
     });
+    done(error);
   }
 };
 
@@ -113,6 +111,26 @@ router.post(
   }
 );
 
-router.post("/signup", (req, res) => {});
+router.post("/signup", async (req, res) => {
+  const { nickname, username, password } = req.body;
+  const newUser = new Users({
+    nickname,
+    username,
+    password,
+  });
+  try {
+    await newUser.save();
+    res.status(200).redirect("login");
+  } catch (error) {
+    console.error(
+      `Database err creating user с ником ${nickname} логином ${username} и паролем ${password}`,
+      error
+    );
+    res.status(500).json({
+      message: `Database err creating user с ником ${nickname} логином ${username} и паролем ${password}`,
+      erroe: error,
+    });
+  }
+});
 
 module.exports = router;

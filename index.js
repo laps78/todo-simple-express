@@ -16,7 +16,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({ secret: "SECRET" }));
+app.use(session({ secret: "SECRET", resave: true, saveUninitialized: true }));
 
 app.set("view engine", "ejs");
 
