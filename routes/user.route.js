@@ -65,11 +65,6 @@ router.use(passport.session({ secret: "SECRET" }));
 router.use(passport.initialize());
 router.use(passport.session());
 
-// test route
-router.use("/test", (req, res) => {
-  res.json("it works!");
-});
-
 router.get("/login", (req, res) => {
   res.render("user/pages/login-page", {
     title: "Вход в систему",

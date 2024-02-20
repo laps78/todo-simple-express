@@ -16,7 +16,18 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({ secret: "SECRET", resave: true, saveUninitialized: true }));
+app.use(
+  session({
+    secret: "SECRET",
+    resave: true,
+    rolling: true,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 10 * 60 * 1000,
+      httpOnly: false,
+    },
+  })
+);
 
 app.set("view engine", "ejs");
 

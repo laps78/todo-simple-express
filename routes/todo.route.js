@@ -4,6 +4,13 @@ const router = express.Router();
 const Todo = require("../models/todo");
 
 router.all("/", async (req, res) => {
+  //
+  console.log(
+    `todo.route log:\n`,
+    `user: ${req.user}`
+    //`session: ${req.session}``isAuthenticated(): ${req.isAuthenticated()}`
+  );
+  //
   try {
     const todos = await Todo.find().select("-__v");
     res.render("todo/index", {
@@ -109,7 +116,6 @@ router.post("/update/:id", async (req, res) => {
 
 router.post("/delete/:id", async (req, res) => {
   const { id } = req.params;
-  console.log("delete!");
   try {
     await Todo.deleteOne({ _id: id });
     res.redirect("/todo");
