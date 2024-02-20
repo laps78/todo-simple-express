@@ -10,14 +10,15 @@ const verifyPassword = (user, password) => {
 
 const verify = async (username, password, done) => {
   try {
-    const foundUser = await Users.findOne({ name: username }).select("-__v");
+    const foundUser = await Users.findOne({
+      username: username,
+    }).select("-__v");
     if (!foundUser) {
       return done(null, false);
     }
     if (!verifyPassword(foundUser, password)) {
       return done(null, false);
     }
-    console.log("user found");
     return done(null, foundUser);
   } catch (error) {
     console.error(`Database err searching user by name ${username}`, error);

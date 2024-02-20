@@ -1,24 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-const { Todo } = require("../src/todo.class");
-const { Storage } = require("../src/storage.io");
+const Todo = require("../models/todo");
 
-// TODO ВОТ ТУТ НУЖНО КРАСИВО ДОБАВИТЬ НЕМНОГО КАШЕРНОЙ АСИНХРОННОСТИ
-// или перейти на синхронный метод чтения
-router.use((req, res, next) => {
-  req.storage = new Storage("todos-simple");
-  setTimeout(() => {
-    req.todos = req.storage.data;
-    next();
-  }, 1000);
-});
-
-router.all("/", (req, res) => {
-  res.render("todo/index", {
-    title: "All todos",
-    todos: req.todos,
-  });
+router.all("/", async (req, res) => {
+  try {
+    const todos = await Todo.find().select("-__v");
+    res.render("todo/index", {
+      title: "All todos",
+      todos: todos,
+    });
+  } catch (error) {
+    console.error(`Database err handling route ${req.method}: /}`, error);
+    res.status(500).json({
+      message: `Database err handling route ${req.method}: /`,
+      error: error,
+    });
+  }
 });
 
 router.get("/create", (req, res) => {
