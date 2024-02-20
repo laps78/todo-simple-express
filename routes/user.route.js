@@ -31,6 +31,7 @@ router.get(
     next();
   },
   (req, res) => {
+    console.log(`в шаблон идет ${req.user.nickname}`);
     res.render("user/pages/profile", {
       title: `${req.user.nickname} | аккаунт`,
       user: req.user,
