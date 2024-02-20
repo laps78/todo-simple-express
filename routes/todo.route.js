@@ -27,63 +27,102 @@ router.get("/create", (req, res) => {
   });
 });
 
-router.post("/create", (req, res) => {
+router.post("/create", async (req, res) => {
   const { title, description } = req.body;
-  const newTodo = new Todo(title, description);
-  req.storage.addNew(newTodo);
-  res.redirect("/todo");
-});
-
-router.get("/update/:id", (req, res) => {
-  const { id } = req.params;
-  const idx = req.todos.findIndex((el) => el.id === id);
-  if (idx === -1) {
-    res.redirect("/404");
-  }
-  res.render("todo/update", {
-    title: "Todo update",
-    todo: req.todos[idx],
-    action: `/todo/update/${id}`,
-  });
-});
-
-router.all("/:id", (req, res) => {
-  const { id } = req.params;
-  const idx = req.todos.findIndex((el) => el.id === id);
-  if (idx === -1) {
-    res.redirect("/404");
-  }
-  res.render("todo/view", {
-    title: "Todo view",
-    todo: req.todos[idx],
-  });
-});
-
-router.post("/update/:id", (req, res) => {
-  const { id } = req.params;
-  const { title, description } = req.body;
-  const idx = req.todos.findIndex((el) => el.id === id);
-  if (idx === -1) {
-    res.redirect("/404");
-  }
-  req.todos[idx] = {
-    ...req.todos[idx],
+  const newTodo = new Todo({
     title,
     description,
-  };
-  req.storage.write(req.todos);
-  res.redirect(`/todo/${id}`);
+  });
+  try {
+    await newTodo.save();
+    res.redirect("/todo");
+  } catch (error) {
+    console.error(`Database err handling route ${req.method}: /`, error);
+    res.status(500).json({
+      message: `Database err handling route ${req.method}: /`,
+      erroe: error,
+    });
+  }
 });
 
-router.post("/delete/:id", (req, res) => {
+router.get("/update/:id", async (req, res) => {
   const { id } = req.params;
-  const idx = req.todos.findIndex((el) => el.id === id);
-  if (idx === -1) {
-    res.redirect("/404");
+  try {
+    const todo = await Todo.findById(id).select("-__v");
+    if (!todo) {
+      res.redirect("/404");
+    }
+    res.render("todo/update", {
+      title: "Todo update",
+      todo: todo,
+      action: `/todo/update/${id}`,
+    });
+  } catch (error) {
+    console.error(
+      `Database err handling route ${req.method}: /todo/update/${id}`,
+      error
+    );
+    res.status(500).json({
+      message: `Database err handling route ${req.method}: /todo/update/${id}`,
+      erroe: error,
+    });
   }
-  req.todos.splice(idx, 1);
-  req.storage.write(req.todos);
-  res.redirect("/todo");
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const todo = await Todo.findById(id).select("-__v");
+    if (!todo) {
+      res.redirect("/404");
+    }
+    res.render("todo/view", {
+      title: "Todo view",
+      todo: todo,
+    });
+  } catch (error) {
+    console.error(`Database err handling route ${req.method}: /${id}`, error);
+    res.status(500).json({
+      message: `Database err handling route ${req.method}: /${id}`,
+      erroe: error,
+    });
+  }
+});
+
+router.post("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, description } = req.body;
+  try {
+    await Todo.findByIdAndUpdate(id, {
+      title,
+      description,
+    });
+    res.redirect(`/todo/${id}`);
+  } catch (error) {
+    console.error(`Database err handling route ${req.method}: /${id}`, error);
+    res.status(500).json({
+      message: `Database err handling route ${req.method}: /${id}`,
+      erroe: error,
+    });
+  }
+});
+
+router.post("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log("delete!");
+  try {
+    await Todo.deleteOne({ _id: id });
+    res.redirect("/todo");
+  } catch (error) {
+    console.error(
+      `Database err handling route ${req.method}: /todo/delete/${id}`,
+      error
+    );
+    res.status(500).json({
+      message: `Database err handling route ${req.method}: /todo/delete/${id}`,
+      erroe: error,
+    });
+  }
 });
 
 module.exports = router;
