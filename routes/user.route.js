@@ -17,7 +17,7 @@ router.get("/signup", (req, res) => {
 
 router.get("/logout", (req, res, next) => {
   req.logout((error) => {
-    console.log(error);
+    console.error(error);
   });
   res.redirect("/");
 });
@@ -42,8 +42,7 @@ router.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "login" }),
   (req, res) => {
-    console.log(req.user);
-    res.redirect("/");
+    res.redirect("/todo");
   }
 );
 

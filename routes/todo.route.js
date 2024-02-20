@@ -12,14 +12,6 @@ router.all(
     next();
   },
   async (req, res) => {
-    //
-    console.log(
-      `todo.route log:\n`,
-      `user: ${req.user}\n`,
-      `session: ${req.session}\n`,
-      `isAuthenticated(): ${req.isAuthenticated()}`
-    );
-    //
     try {
       const todos = await Todo.find().select("-__v");
       res.render("todo/index", {
