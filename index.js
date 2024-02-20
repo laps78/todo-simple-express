@@ -3,6 +3,7 @@ const errorMW = require("./middleware/error");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 const todoApiRouter = require("./routes/api.route");
 const indexRouter = require("./routes/index.route");
@@ -14,6 +15,7 @@ const UrlDB = process.env.UrlDB;
 const DB_NAME = process.env.DB_NAME;
 const app = express();
 
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
