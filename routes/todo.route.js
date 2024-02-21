@@ -17,6 +17,7 @@ router.all(
       res.render("todo/index", {
         title: "All todos",
         todos: todos,
+        isAuthorized: req.isAuthenticated(),
       });
     } catch (error) {
       console.error(`Database err handling route ${req.method}: /}`, error);
@@ -33,6 +34,7 @@ router.get("/create", (req, res) => {
     title: "Todo create",
     todo: {},
     action: "create/",
+    isAuthorized: req.isAuthenticated(),
   });
 });
 
@@ -65,6 +67,7 @@ router.get("/update/:id", async (req, res) => {
       title: "Todo update",
       todo: todo,
       action: `/todo/update/${id}`,
+      isAuthorized: req.isAuthenticated(),
     });
   } catch (error) {
     console.error(
@@ -88,6 +91,7 @@ router.get("/:id", async (req, res) => {
     res.render("todo/view", {
       title: "Todo view",
       todo: todo,
+      isAuthorized: req.isAuthenticated(),
     });
   } catch (error) {
     console.error(`Database err handling route ${req.method}: /${id}`, error);

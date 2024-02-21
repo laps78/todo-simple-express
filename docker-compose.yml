@@ -9,6 +9,8 @@ services:
       PORT: 3030
       UrlDB: mongodb://root:example@mongo:27017
       DB_NAME: todos
+      REDIS_URL: redis://storage
+      REDIS_PORT: 3002
     volumes:
       - ./:/todo-app
     depends_on:

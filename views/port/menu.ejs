@@ -18,6 +18,9 @@
           >Главная <span class="sr-only">(current)</span></a
         >
       </li>
+      
+	<% if (isAuthorized) {%>
+      
       <li class="nav-item">
         <a class="nav-link" href="/todo">todo</a>
       </li>   
@@ -29,6 +32,16 @@
         <a class="nav-link" href="/api/user/logout">выход</a>
       </li>
      
+	<% } else { %>
+  
+  		<li class="nav-item">
+        <a class="nav-link" href="/api/user/login">Вход</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/user/signup">Регистрацияя</a>
+      </li>
+  
+  <% } %>  
     </ul>
   </div>
 </nav>

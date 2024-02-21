@@ -1,5 +1,5 @@
-<%- include('../../port/layout-start', {title: title}) %> <%-
-include('../../port/menu') %>
+<%- include('../../port/layout-start', {title: title}) %>
+<%- include('../../port/menu', {isAuthorized: isAuthorized}) %>
 
 <p>
   <b>ID:</b> <%= user.id %><br />

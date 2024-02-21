@@ -1,5 +1,5 @@
 <%- include('../port/layout-start', {title: title}) %> <%-
-include('../port/menu') %>
+include('../port/menu', {isAuthorized: isAuthorized}) %>
 
 <h1><%= title %></h1>
 <a class="btn btn-sm btn-primary" href="todo/create">Добавить запись</a>

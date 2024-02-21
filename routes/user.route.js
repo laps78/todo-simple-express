@@ -6,12 +6,14 @@ const { passport } = require("../middleware/userAuth");
 router.get("/login", (req, res) => {
   res.render("user/pages/login-page", {
     title: "Вход в систему",
+    isAuthorized: req.isAuthenticated(),
   });
 });
 
 router.get("/signup", (req, res) => {
   res.render("user/pages/signup-page", {
     title: "Регистрация",
+    isAuthorized: req.isAuthenticated(),
   });
 });
 
@@ -34,6 +36,7 @@ router.get(
     console.log(`в шаблон идет ${req.user.nickname}`);
     res.render("user/pages/profile", {
       title: `${req.user.nickname} | аккаунт`,
+      isAuthorized: req.isAuthenticated(),
       user: req.user,
     });
   }

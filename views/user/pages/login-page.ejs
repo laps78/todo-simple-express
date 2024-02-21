@@ -1,5 +1,7 @@
 <%- include('../../port/layout-start', {title: title}) %>
-<%- include('../../port/menu') %>
+<%- include('../../port/menu', {isAuthorized: isAuthorized}) %>
+	
+	<h1><%= title %></h1>
 	
 	<%# login form %>
 	<%- include('../forms/login-form') %>
