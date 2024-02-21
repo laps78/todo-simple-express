@@ -11,8 +11,12 @@ services:
       DB_NAME: todos
     volumes:
       - ./:/todo-app
+      - /todo-app/redis_api
+      - /todo-app/redis_data
+      - /todo-app/data-storage/mongo
     depends_on:
       - mongo
+      - redis-api
 
   mongo:
     image: mongo
@@ -34,3 +38,24 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017
     depends_on:
       - mongo
+
+  redis-storage:
+    image: redis
+    restart: always
+    volumes:
+      - ./redis_data:/data
+
+  redis-api:
+    image: node:alpine
+    restart: always
+    volumes:
+      - ./redis_api:/app
+    working_dir: /app
+    ports:
+      - 3002:3002
+    environment:
+      PORT: 3002
+      REDIS_URL: redis://storage
+    command: npm run dev
+    depends_on:
+      - redis-storage
