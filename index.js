@@ -52,10 +52,12 @@ const startApp = async (PORT, UrlDB, DB_NAME) => {
       dbName: DB_NAME,
     });
     app.listen(PORT) &&
-      console.log(`Приложение успешно запущено localhost:${PORT}`);
+      console.log(
+        `[ === TODO APP ===] Приложение успешно запущено localhost:${PORT}`
+      );
   } catch (err) {
     console.error(
-      `Ошибка при запуске приложения(port=${PORT}, db_adress=${UrlDB}): `,
+      `[ === TODO APP ===] Ошибка при запуске приложения(port=${PORT}, db_adress=${UrlDB}): `,
       err
     );
   }

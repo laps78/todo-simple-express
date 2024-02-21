@@ -11,9 +11,6 @@ services:
       DB_NAME: todos
     volumes:
       - ./:/todo-app
-      - /todo-app/redis_api
-      - /todo-app/redis_data
-      - /todo-app/data-storage/mongo
     depends_on:
       - mongo
       - redis-api
@@ -56,6 +53,6 @@ services:
     environment:
       PORT: 3002
       REDIS_URL: redis://storage
-    command: npm run dev
+    command: sh -c "npm i && npm run dev"
     depends_on:
       - redis-storage

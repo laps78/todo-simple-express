@@ -42,5 +42,5 @@ app.post("/counter/:bookId/delete", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Counter app started at port ${PORT}`);
+  console.log(`[ === REDIS API === ] started at port ${PORT}`);
 });
