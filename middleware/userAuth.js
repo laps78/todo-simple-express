@@ -27,7 +27,7 @@ const verify = async (username, password, done) => {
     console.error(`Database err searching user by name ${username}`, error);
     res.status(500).json({
       message: `Database err searching user by name ${username}`,
-      erroe: error,
+      error: error,
     });
     done(error);
   }
