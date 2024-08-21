@@ -50,7 +50,7 @@ passport.deserializeUser(async (id, callback) => {
     );
     res.status(500).json({
       message: `Database err searching user by id [${id}] for deserialiazing`,
-      erroe: error,
+      error: error,
     });
   }
 });
